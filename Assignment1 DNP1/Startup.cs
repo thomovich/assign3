@@ -28,7 +28,6 @@ namespace Assignment1_DNP1
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();
             services.AddSingleton<ITodoData, TodoJSONData>();
         }
 

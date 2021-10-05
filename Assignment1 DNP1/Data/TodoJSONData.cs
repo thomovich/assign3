@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using Assignment1_DNP1.Models;
+using Microsoft.AspNetCore.Components;
 
 namespace Assignment1_DNP1.Data
 {
@@ -17,8 +18,7 @@ namespace Assignment1_DNP1.Data
             if (!File.Exists(todoFile))
             {
                 Seed();
-                string todosAsJson = JsonSerializer.Serialize(todos);
-                File.WriteAllText(todoFile, todosAsJson);
+                WriteTodosToFile();
             }
             else
             {
@@ -35,9 +35,10 @@ namespace Assignment1_DNP1.Data
 
         public void AddTodo(Todo todo)
         {
+            int max = todos.Max(todo => todo.TodoId);
+            todo.TodoId = (++max);
             todos.Add(todo);
-            string todosAsJson = JsonSerializer.Serialize(todos);
-            File.WriteAllText(todoFile, todosAsJson);
+            WriteTodosToFile();
         }
 
         private void Seed()
@@ -50,8 +51,28 @@ namespace Assignment1_DNP1.Data
                 new Todo {UserId = 3, TodoId = 4, Title = "Eat breakfast", IsCompleted = false},
                 new Todo {UserId = 4, TodoId = 5, Title = "Mow lawn", IsCompleted = true},
             };
-
             todos = ts.ToList();
         }
+
+        public void RemoveTodo(int todoId)
+        {
+            Todo toRemove = todos.First(t => t.TodoId == todoId);
+            todos.Remove(toRemove);
+            WriteTodosToFile();
+        }
+
+        private void WriteTodosToFile()
+        {
+            string todosAsJson = JsonSerializer.Serialize(todos);
+            File.WriteAllText(todoFile, todosAsJson);
+        }
+
+        public void Update(Todo todo)
+        {
+            Todo toUpdate = todos.First(t => t.TodoId == todo.TodoId);
+            toUpdate.IsCompleted = todo.IsCompleted;
+            WriteTodosToFile();
+        }
+        
     }
 }

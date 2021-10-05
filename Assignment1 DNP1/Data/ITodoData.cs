@@ -8,5 +8,7 @@ namespace Assignment1_DNP1.Data
     {
         IList<Todo> GetTodos();
         void AddTodo(Todo todo);
+        void RemoveTodo(int todoId);
+        void Update(Todo todo);
     }
 }

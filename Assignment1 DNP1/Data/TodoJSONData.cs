@@ -71,8 +71,13 @@ namespace Assignment1_DNP1.Data
         {
             Todo toUpdate = todos.First(t => t.TodoId == todo.TodoId);
             toUpdate.IsCompleted = todo.IsCompleted;
+            toUpdate.Title = todo.Title;
             WriteTodosToFile();
         }
-        
+
+        public Todo Get(int id)
+        {
+            return todos.FirstOrDefault(t => t.TodoId == id);
+        }
     }
 }

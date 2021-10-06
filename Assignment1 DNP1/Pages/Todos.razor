@@ -3,14 +3,25 @@
 @using System.Collections
 @using Assignment1_DNP1.Models
 @inject ITodoData TodoData
+@inject NavigationManager NavMgr
+
 <h3>Todos</h3>
-@if (todos == null)
+<p>
+    Filter by User Id: <input type="number" @oninput="@((arg) => FilterByUserId(arg))" style="width:50px"/>
+</p>
+<p>
+    Filter by completed status:
+    <select class="form-control selectpicker" @onchange="@((arg) => FilterByCompletedStatus(arg))" style="width:100px">
+        <option>Both</option> <option>False</option> <option>True</option>
+    </select>
+</p>
+@if (todosToShow == null)
 {
     <p>
         <em>Loading...</em>
     </p>
 }
-else if (!todos.Any())
+else if (!todosToShow.Any())
 {
     <p>
         <em>No ToDo items exist. Please add some.</em>
@@ -26,10 +37,11 @@ else
             <th>Title</th>
             <th>Completed?</th>
             <th>Remove</th>
+            <th>Edit</th>
         </tr>
         </thead>
         <tbody>
-        @foreach (var item in todos)
+        @foreach (var item in todosToShow)
         {
             <tr>
                 <td>@item.UserId</td>
@@ -43,6 +55,11 @@ else
                         <i class="oi oi-trash" style="color:red"/>
                     </button>
                 </td>
+                <td>
+                    <button @onclick="@(() => Edit(item.TodoId))">
+                        <i class="oi oi-pencil" style="color:#1b6ec2"/>
+                    </button>
+                </td>
             </tr>
         }
         </tbody>
@@ -50,18 +67,55 @@ else
 }
 
 @code {
-    private IList<Todo> todos;
+    private IList<Todo> todosToShow;
+    private IList<Todo> allTodos;
+
+    private int? filterById;
+    private bool? filterByIsCompleted;
+
+    private void FilterByUserId(ChangeEventArgs changeEventArgs)
+    {
+        filterById = null;
+        try
+        {
+            filterById = int.Parse(changeEventArgs.Value.ToString());
+        }
+        catch (Exception e)
+        {
+        }
+        ExecuteFilter();
+    }
+
+    private void FilterByCompletedStatus(ChangeEventArgs args)
+    {
+        filterByIsCompleted = null;
+        try
+        {
+            filterByIsCompleted = bool.Parse(args.Value.ToString());
+        }
+        catch (Exception e)
+        {
+        }
+        ExecuteFilter();
+    }
+
+    private void ExecuteFilter()
+    {
+        todosToShow = allTodos.Where(t => (filterById != null && t.UserId == filterById || filterById == null) && (filterByIsCompleted != null && t.IsCompleted == filterByIsCompleted || filterByIsCompleted == null)).ToList();
+    }
 
     protected override async Task OnInitializedAsync()
     {
-        todos = TodoData.GetTodos();
+        allTodos = TodoData.GetTodos();
+        todosToShow = allTodos;
     }
 
     private void RemoveTodo(int todoId)
     {
-        Todo todoToRemove = todos.First(t => t.TodoId == todoId);
+        Todo todoToRemove = todosToShow.First(t => t.TodoId == todoId);
         TodoData.RemoveTodo(todoId);
-        todos.Remove(todoToRemove);
+        allTodos.Remove(todoToRemove);
+        todosToShow.Remove(todoToRemove);
     }
 
     private void CompletedChange(ChangeEventArgs evt, Todo todo)
@@ -70,5 +124,11 @@ else
         TodoData.Update(todo);
     }
 
+
+    private void Edit(int id)
+    {
+        NavMgr.NavigateTo($"Edit/{id}");
+    }
+    
 
 }

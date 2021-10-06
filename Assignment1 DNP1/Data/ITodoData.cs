@@ -10,5 +10,6 @@ namespace Assignment1_DNP1.Data
         void AddTodo(Todo todo);
         void RemoveTodo(int todoId);
         void Update(Todo todo);
+        Todo Get(int id);
     }
 }

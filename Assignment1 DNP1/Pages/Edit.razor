@@ -2,7 +2,7 @@
 @using Assignment1_DNP1.Data
 @using Assignment1_DNP1.Models
 @using global::Models
-@inject IAdultdata _adultdata
+@inject IAdultdata AdultData
 @inject NavigationManager NavMgr
 
 <h3>Edit todo with id: @Id</h3>
@@ -12,12 +12,19 @@
     [Parameter]
     public int Id { get; set; }
 
-    private Adult AdultEdit;
+    private Adult AdultToEdit;
 
     protected override async Task OnInitializedAsync()
     {
-        AdultEdit = _adultdata.Get(Id);
+        AdultToEdit = AdultData.Get(Id);
     }
-    
+
+    private void Save()
+    {
+        AdultData.Update(AdultToEdit);
+      
+        ;
+
+    }
 
 }

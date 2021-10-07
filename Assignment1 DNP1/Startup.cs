@@ -28,7 +28,7 @@ namespace Assignment1_DNP1
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<ITodoData, TodoJSONData>();
+            services.AddSingleton<IAdultdata, WebsiteData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

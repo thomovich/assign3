@@ -2,26 +2,25 @@
 @using Assignment1_DNP1.Data
 @using System.Collections
 @using Assignment1_DNP1.Models
-@inject ITodoData TodoData
+@using global::Models
+@inject IAdultdata _adultdata
 @inject NavigationManager NavMgr
 
 <h3>Todos</h3>
 <p>
-    Filter by User Id: <input type="number" @oninput="@((arg) => FilterByUserId(arg))" style="width:50px"/>
+    Filter by User Id: 
 </p>
 <p>
     Filter by completed status:
-    <select class="form-control selectpicker" @onchange="@((arg) => FilterByCompletedStatus(arg))" style="width:100px">
-        <option>Both</option> <option>False</option> <option>True</option>
-    </select>
+    
 </p>
-@if (todosToShow == null)
+@if (adultsToshow == null)
 {
     <p>
         <em>Loading...</em>
     </p>
 }
-else if (!todosToShow.Any())
+else if (!adultsToshow.Any())
 {
     <p>
         <em>No ToDo items exist. Please add some.</em>
@@ -41,22 +40,20 @@ else
         </tr>
         </thead>
         <tbody>
-        @foreach (var item in todosToShow)
+        @foreach (var item in adultsToshow)
         {
             <tr>
-                <td>@item.UserId</td>
-                <td>@item.TodoId</td>
-                <td>@item.Title</td>
+                <td>@item.Id</td>
+                <td>@item.FirstName</td>
+                <td>@item.LastName</td>
+                <td>@item.JobTitle</td>
                 <td>
-                    <input type="checkbox" checked=@item.IsCompleted @onchange="@((arg) => CompletedChange(arg, item))"/>
-                </td>
-                <td>
-                    <button @onclick="@(() => RemoveTodo(item.TodoId))">
+                    <button @onclick="@(() => RemoveAdult(item.Id))">
                         <i class="oi oi-trash" style="color:red"/>
                     </button>
                 </td>
                 <td>
-                    <button @onclick="@(() => Edit(item.TodoId))">
+                    <button @onclick="@(() => Edit(item.Id))">
                         <i class="oi oi-pencil" style="color:#1b6ec2"/>
                     </button>
                 </td>
@@ -67,13 +64,14 @@ else
 }
 
 @code {
-    private IList<Todo> todosToShow;
-    private IList<Todo> allTodos;
+    private IList<Adult> adultsToshow;
+    private IList<Adult> allAdults;
 
     private int? filterById;
-    private bool? filterByIsCompleted;
+    
+    private string filterbyFirstName;
 
-    private void FilterByUserId(ChangeEventArgs changeEventArgs)
+    private void FilterByAdultId(ChangeEventArgs changeEventArgs)
     {
         filterById = null;
         try
@@ -86,12 +84,12 @@ else
         ExecuteFilter();
     }
 
-    private void FilterByCompletedStatus(ChangeEventArgs args)
+    private void FilterByFirstname(ChangeEventArgs args)
     {
-        filterByIsCompleted = null;
+        filterbyFirstName = null;
         try
         {
-            filterByIsCompleted = bool.Parse(args.Value.ToString());
+            
         }
         catch (Exception e)
         {
@@ -101,27 +99,27 @@ else
 
     private void ExecuteFilter()
     {
-        todosToShow = allTodos.Where(t => (filterById != null && t.UserId == filterById || filterById == null) && (filterByIsCompleted != null && t.IsCompleted == filterByIsCompleted || filterByIsCompleted == null)).ToList();
+        adultsToshow = allAdults.Where(t => (filterById != null && t.Id == filterById || filterById == null) && (filterbyFirstName != null && t.FirstName == filterbyFirstName || filterbyFirstName == null)).ToList();
     }
 
     protected override async Task OnInitializedAsync()
     {
-        allTodos = TodoData.GetTodos();
-        todosToShow = allTodos;
+        
+        allAdults = _adultdata.GetAdults();
+        adultsToshow = allAdults;
     }
 
-    private void RemoveTodo(int todoId)
+    private void RemoveAdult(int adultId)
     {
-        Todo todoToRemove = todosToShow.First(t => t.TodoId == todoId);
-        TodoData.RemoveTodo(todoId);
-        allTodos.Remove(todoToRemove);
-        todosToShow.Remove(todoToRemove);
+        Adult adultToRemove = adultsToshow.First(t => t.Id == adultId);
+        _adultdata.RemoveAdult(adultId);
+        allAdults.Remove(adultToRemove);
+        adultsToshow.Remove(adultToRemove);
     }
 
-    private void CompletedChange(ChangeEventArgs evt, Todo todo)
+    private void CompletedChange(ChangeEventArgs evt, Adult adult)
     {
-        todo.IsCompleted = (bool) evt.Value;
-        TodoData.Update(todo);
+        _adultdata.Update(adult);
     }
 
 

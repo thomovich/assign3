@@ -5,4 +5,8 @@
     <RootNamespace>Assignment1_DNP1</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Image" />
+  </ItemGroup>
+
 </Project>

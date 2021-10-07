@@ -4,12 +4,14 @@
 
 .top-row {
     height: 3.5rem;
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgb(191, 4, 162);
 }
 
 .navbar-brand {
     font-size: 1.1rem;
 }
+
+
 
 .oi {
     width: 2rem;

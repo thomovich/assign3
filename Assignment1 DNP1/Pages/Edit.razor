@@ -1,8 +1,7 @@
 @page "/Edit/{Id:int}"
 @using Assignment1_DNP1.Data
 @using Assignment1_DNP1.Models
-@using global::Models
-@inject IAdultdata _adultdata
+@inject ITodoData TodoData
 @inject NavigationManager NavMgr
 
 <h3>Edit todo with id: @Id</h3>
@@ -12,12 +11,19 @@
     [Parameter]
     public int Id { get; set; }
 
-    private Adult AdultEdit;
+    private Todo todoToEdit;
 
     protected override async Task OnInitializedAsync()
     {
-        AdultEdit = _adultdata.Get(Id);
+        todoToEdit = TodoData.Get(Id);
     }
-    
+
+    private void Save()
+    {
+        TodoData.Update(todoToEdit);
+        NavMgr.NavigateTo(“/Todos”)
+        ;
+
+    }
 
 }

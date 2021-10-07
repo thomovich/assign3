@@ -5,7 +5,7 @@
 @inject ITodoData TodoData
 @inject NavigationManager NavigationManager
 <h3> AddTodo </h3>
-    
+    @attribute [Authorize(Policy = "MustBeVIA")]
 <EditForm Model ="@newTodoItem" OnValidSubmit="@AddNewTodo"> 
 <DataAnnotationsValidator/>
 <ValidationSummary/>

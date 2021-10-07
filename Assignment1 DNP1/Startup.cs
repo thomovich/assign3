@@ -9,7 +9,10 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Assignment1_DNP1.Authentication;
+using Microsoft.AspNetCore.Components.Authorization;
 
 namespace Assignment1_DNP1
 {
@@ -29,6 +32,26 @@ namespace Assignment1_DNP1
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<ITodoData, TodoJSONData>();
+            services.AddScoped<IUserService, InMemoryUserService>();
+            services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
+            
+            services.AddAuthorization(options => {
+                options.AddPolicy("MustBeVIA",  a => 
+                    a.RequireAuthenticatedUser().RequireClaim("Domain", "via.dk"));
+            
+                options.AddPolicy("SecurityLevel4",  a => 
+                    a.RequireAuthenticatedUser().RequireClaim("Level", "4","5"));
+            
+                options.AddPolicy("MustBeTeacher",  a => 
+                    a.RequireAuthenticatedUser().RequireClaim("Role", "Teacher"));
+            
+                options.AddPolicy("SecurityLevel2", policy =>
+                    policy.RequireAuthenticatedUser().RequireAssertion(context => {
+                        Claim levelClaim = context.User.FindFirst(claim => claim.Type.Equals("Level"));
+                        if (levelClaim == null) return false;
+                        return int.Parse(levelClaim.Value) >= 2;
+                    }));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

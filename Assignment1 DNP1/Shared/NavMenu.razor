@@ -19,15 +19,24 @@
         </li>
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="AddTodo">
-                 <span class="oi oi-plus" aria-hidden="true"></span> Add Todo
+                <span class="oi oi-plus" aria-hidden="true"></span> Add Todo
             </NavLink>
         </li><li class="nav-item px-3">
-    <NavLink class="nav-link" href="Login">
-        <span class="oi oi-list-rich" aria-hidden="true"></span> Login here
-    </NavLink>
-</li>
+            <NavLink class="nav-link" href="Login">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Login here
+            </NavLink>
+        </li>
+        <AuthorizeView Policy="MustBeVIA">
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="UserAcess">
+                    <span class="oi oi-book" aria-hidden="true"></span> Add adult
+                </NavLink>
+            </li>
+        </AuthorizeView>
     </ul>
 </div>
+
+
 
 @code {
     private bool collapseNavMenu = true;

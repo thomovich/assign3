@@ -37,7 +37,8 @@ else
             <th>Age</th>
             <th>Hair Color</th>
             <th>Height</th>
-            <th>Completed?</th>
+            <th>Weight</th>
+            <th>JobTitle</th>
             <th>Remove</th>
             <th>Edit</th>
         </tr>
@@ -52,6 +53,7 @@ else
                 <td>@item.Age</td>
                 <td>@item.HairColor</td>
                 <td>@item.Height</td>
+                <td>@item.Weight</td>
                 <td>@item.JobTitle</td>
                 <td>
                     <button @onclick="@(() => RemoveAdult(item.Id))">
@@ -123,10 +125,7 @@ else
         adultsToshow.Remove(adultToRemove);
     }
 
-    private void CompletedChange(ChangeEventArgs evt, Adult adult)
-    {
-        _adultdata.Update(adult);
-    }
+  
 
 
     private void Edit(int id)

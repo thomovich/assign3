@@ -20,8 +20,7 @@ namespace Assignment1_DNP1.Data
             if (!File.Exists(AdultFile))
             {
                 
-                string todoAsJson = JsonSerializer.Serialize(adults);
-                File.WriteAllText(AdultFile, todoAsJson);
+                WriteAdultFile();
             }
             else
             {
@@ -41,8 +40,7 @@ namespace Assignment1_DNP1.Data
         public void AddAdult(Adult adult)
         {
             adults.Add(adult);
-            string todoAsJson = JsonSerializer.Serialize(adults);
-            File.WriteAllText(AdultFile, todoAsJson);
+            WriteAdultFile();
         }
 
         
@@ -51,7 +49,13 @@ namespace Assignment1_DNP1.Data
         {
             Adult toRemove = adults.First(t => t.Id == adultId);
             adults.Remove(toRemove);
-            WriteAdultsToFile();
+            WriteAdultFile();
+        }
+
+        private void WriteAdultFile()
+        {
+            string todoAsJson = JsonSerializer.Serialize(adults);
+            File.WriteAllText(AdultFile, todoAsJson);
         }
 
         private void WriteAdultsToFile()
@@ -61,16 +65,20 @@ namespace Assignment1_DNP1.Data
             _fileContext.SaveChanges();
         }
 
-        public void Update(Adult adult)
-        {
-            Adult adultUpdate = adults.First(t => t.Id == adult.Id);
-            adultUpdate = adult;
-            WriteAdultsToFile();
-        }
+        
 
         public Adult Get(int id)
         {
             return adults.FirstOrDefault(t => t.Id == id);
         }
+
+        public void Update(Adult adult)
+        {
+            Adult toUpdate = adults.First(t => t.Id == adult.Id);
+            toUpdate.FirstName = adult.FirstName;
+            WriteAdultFile();
+        }
+        
+        
     }
 }

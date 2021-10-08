@@ -9,6 +9,7 @@ namespace Assignment1_DNP1.Models
 
         public int TodoId { get; set; }
         [Required, MaxLength(128)] public string Title { get; set; }
+        
         public bool IsCompleted { get; set; }
     }
 }

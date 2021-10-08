@@ -1,11 +1,34 @@
 @page "/Edit/{Id:int}"
 @using Assignment1_DNP1.Data
-@using Assignment1_DNP1.Models
 @using global::Models
 @inject IAdultdata AdultData
 @inject NavigationManager NavMgr
 
 <h3>Edit todo with id: @Id</h3>
+
+@if (AdultToEdit == null)
+{
+    <em>Todo not found!</em>
+}
+else
+{
+    <EditForm Model="@AdultToEdit" OnInvalidSubmit="@Save">
+        <DataAnnotationsValidator/>
+        <ValidationSummary/>
+        <div class="form-group">
+        User Id:<br/>
+        <InputNumber @bind-Value="AdultToEdit.Id"/>
+        </div>
+        <div class="form-group">
+            FirstName:<br/>
+            <InputTextArea rows="4" @bind-Value="AdultToEdit.FirstName"/>
+        </div>
+        <p class="actions">
+        <button class="btn btn-outline-dark" type="submit">Save</button>
+        </p>
+    </EditForm>
+}
+
 
 @code {
 
@@ -22,8 +45,7 @@
     private void Save()
     {
         AdultData.Update(AdultToEdit);
-      
-        ;
+        NavMgr.NavigateTo("/");
 
     }
 

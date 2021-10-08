@@ -19,6 +19,7 @@ namespace Assignment1_DNP1.Data
         public WebsiteData() {
             if (!File.Exists(AdultFile))
             {
+                
                 string todoAsJson = JsonSerializer.Serialize(adults);
                 File.WriteAllText(AdultFile, todoAsJson);
             }
@@ -40,7 +41,8 @@ namespace Assignment1_DNP1.Data
         public void AddAdult(Adult adult)
         {
             adults.Add(adult);
-            WriteAdultsToFile();
+            string todoAsJson = JsonSerializer.Serialize(adults);
+            File.WriteAllText(AdultFile, todoAsJson);
         }
 
         

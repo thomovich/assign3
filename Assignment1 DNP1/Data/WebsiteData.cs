@@ -16,10 +16,18 @@ namespace Assignment1_DNP1.Data
         private FileContext _fileContext;
         public string AdultFile = "adults.json";
 
-        public WebsiteData()
-        { 
-            _fileContext = new FileContext();
-            adults = _fileContext.Adults;
+        public WebsiteData() {
+            if (!File.Exists(AdultFile))
+            {
+                string todoAsJson = JsonSerializer.Serialize(adults);
+                File.WriteAllText(AdultFile, todoAsJson);
+            }
+            else
+            {
+                string content = File.ReadAllText(AdultFile);
+                adults = JsonSerializer.Deserialize<List<Adult>>(content);
+            }
+            
         }
 
 

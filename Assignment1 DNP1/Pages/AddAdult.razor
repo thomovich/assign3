@@ -7,7 +7,7 @@
 @inject NavigationManager NavigationManager
 <h3> Add Adult </h3>
     
-<EditForm Model ="@newAdultItem" OnValidSubmit="@AddNewTodo"> 
+<EditForm Model ="@newAdultItem" OnValidSubmit="@AddNewAdult"> 
 <DataAnnotationsValidator/>
 <ValidationSummary/>
 <div class="form-group"> User Id:<br/> 
@@ -36,10 +36,10 @@
 @code {
     private Adult newAdultItem = new Adult();
 
-    private void AddNewTodo()
+    private void AddNewAdult()
     {
         _adultdata.AddAdult(newAdultItem);
-        NavigationManager.NavigateTo("/Todos");
+        NavigationManager.NavigateTo("/Adults");
     }
 
 }

@@ -11,7 +11,7 @@
     Filter by adult Id: <input type ="number" @oninput="@((arg) => FilterByAdultId(arg))"/>
 </p>
 <p>
-    Filter by adult first name:
+    Filter by adult first name: <input type ="text" @oninput="@((arg) => FilterByFirstname(arg))"/>
 
 </p>
 @if (adultsToshow == null)
@@ -75,41 +75,59 @@ else
     private IList<Adult> adultsToshow;
     private IList<Adult> allAdults;
 
-    private int? filterById;
+    private int? filterbyId;
 
-    private string filterbyFirstName;
+    private string? filterbyfirstName;
 
     private void FilterByAdultId(ChangeEventArgs changeEventArgs)
     {
-        int? filterById = null;
+        filterbyId = null;
         try
         {
-            filterById = int.Parse(changeEventArgs.Value.ToString());
-            
+            filterbyId = int.Parse(changeEventArgs.Value.ToString());
+
+
         }
         catch (Exception e)
         {
         }
-        ExecuteFilter();
+        if(!(filterbyId == null || filterbyId == 0))
+        {
+            ExecuteFilter();
+        } else
+        {
+            adultsToshow = allAdults;
+        }
     }
 
-    private void FilterByFirstname(ChangeEventArgs args)
+    private void FilterByFirstname(ChangeEventArgs changeEventArgs)
     {
-        String? filterbyFirstName = null;
+        filterbyfirstName = null;
         try
         {
-
+            filterbyfirstName = changeEventArgs.Value.ToString();
         }
         catch (Exception e)
         {
+
         }
-        ExecuteFilter();
+        if (!string.IsNullOrEmpty(filterbyfirstName))
+        {
+            ExecuteFilter();
+        }
+        else
+        {
+            filterbyfirstName = null;
+            adultsToshow = allAdults;
+        }
+
     }
 
     private void ExecuteFilter()
     {
-        adultsToshow = allAdults.Where(t => (filterById != null && t.Id == filterById || filterById == null) 
-        && (filterbyFirstName != null && t.FirstName == filterbyFirstName || filterbyFirstName == null)).ToList();
+        adultsToshow = allAdults.Where(t => (filterbyId != null && t.Id == filterbyId || filterbyId == null)
+
+        && (filterbyfirstName != null && t.FirstName.Equals(filterbyfirstName, StringComparison.OrdinalIgnoreCase) || filterbyfirstName == null)).ToList();
 
     }
 

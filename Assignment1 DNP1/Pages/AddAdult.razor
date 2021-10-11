@@ -5,6 +5,8 @@
 @using Microsoft.AspNetCore.Components
 @inject IAdultdata _adultdata
 @inject NavigationManager NavigationManager
+
+@attribute [Authorize(Policy = "MustBeVIA")]
 <h3> Add Adult </h3>
     
 <EditForm Model ="@newAdultItem" OnValidSubmit="@AddNewAdult"> 

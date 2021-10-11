@@ -18,11 +18,11 @@ namespace Assignment1_DNP1.Data
             {
                 new User
                 {
-                    City = "Horsens",
+                    City = "Aarhus",
                     Domain = "via.dk",
                     Password = "123456",
                     Role = "Teacher",
-                    BirthYear = 1986,
+                    BirthYear = 1998,
                     SecurityLevel = 5,
                     UserName = "Christina"
                 },
@@ -32,18 +32,18 @@ namespace Assignment1_DNP1.Data
                     Domain = "hotmail.com",
                     Password = "123456",
                     Role = "Student",
-                    BirthYear = 1998,
+                    BirthYear = 1997,
                     SecurityLevel = 3,
                     UserName = "Emma"
                 },
                 
                 new User
                 {
-                    City = "Vejle",
+                    City = "Aarhus",
                     Domain = "via.com",
                     Password = "123456",
                     Role = "Guest",
-                    BirthYear = 1973,
+                    BirthYear = 1997,
                     SecurityLevel = 1,
                     UserName = "Asbjørn"
                 }

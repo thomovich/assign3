@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Assignment1_DNP1.Models;
 using Models;
 
@@ -50,7 +51,7 @@ namespace Assignment1_DNP1.Data
             }.ToList();
         }
 
-        public User ValidateUser(string userName, string Password)
+        public async Task<User> ValidateUser(string userName, string Password)
         {
             User first = users.FirstOrDefault(user => user.UserName.Equals(userName));
             if (first == null) {

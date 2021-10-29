@@ -36,20 +36,31 @@ namespace Assignment1_DNP1.Data
             return tmp;
         }
 
-        public void AddAdult(Adult adult)
+        public async Task<Adult> AddAdult(Adult adult)
         {
             adults.Add(adult);
             WriteAdultFile();
+            return adult;
         }
 
         
 
-        public void RemoveAdult(int adultId)
+        public async Task RemoveAdult(int adultId)
         {
             Adult toRemove = adults.First(t => t.Id == adultId);
             adults.Remove(toRemove);
             WriteAdultFile();
         }
+
+        public async Task<Adult> UpdateAsync(Adult adult)
+        {
+            Adult toUpdate = adults.First(t => t.Id == adult.Id);
+            toUpdate.FirstName = adult.FirstName;
+            WriteAdultFile();
+            return toUpdate;
+        }
+        
+      
 
         private void WriteAdultFile()
         {
@@ -63,9 +74,7 @@ namespace Assignment1_DNP1.Data
             File.WriteAllText(AdultFile, adultasJson);
             _fileContext.SaveChanges();
         }
-
         
-
         public Adult Get(int id)
         {
             return adults.FirstOrDefault(t => t.Id == id);
@@ -76,13 +85,7 @@ namespace Assignment1_DNP1.Data
             List<Adult> tmp = new List<Adult>(adults);
             return tmp;
         }
-
-        public void Update(Adult adult)
-        {
-            Adult toUpdate = adults.First(t => t.Id == adult.Id);
-            toUpdate.FirstName = adult.FirstName;
-            WriteAdultFile();
-        }
+        
         
         
     }

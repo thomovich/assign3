@@ -4,7 +4,7 @@ using Assignment1_DNP1.Data;
 using Assignment1_DNP1.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Assignment_2.Controllers
+namespace Assignment_2
 {
     [ApiController]
     [Route("[controller]")]

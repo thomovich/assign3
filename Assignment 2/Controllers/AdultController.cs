@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Assignment1_DNP1.Data;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 
 
-namespace Assignment_2.Controllers {
+namespace Assignment_2 {
     
     [ApiController]
     [Route("[controller]")]

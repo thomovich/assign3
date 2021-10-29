@@ -1,5 +1,4 @@
-namespace Assignment1_DNP1.Models
-{
+namespace Assignment_2 { 
     public class User
     {
         public string UserName { get; set; }

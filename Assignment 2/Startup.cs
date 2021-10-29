@@ -33,8 +33,8 @@ namespace Assignment_2
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "Assignment_2", Version = "v1"});
             });
             services.AddScoped<IAdultdata, WebsiteData>();
-            
-            
+            services.AddScoped<IUserService, InMemoryUserService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

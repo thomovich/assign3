@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Models;
 
 
-namespace TodosWebAP.Controllers {
+namespace Assignment_2.Controllers {
     
     [ApiController]
     [Route("[controller]")]
@@ -19,7 +19,7 @@ namespace TodosWebAP.Controllers {
             this.websiteData = websiteData;
         }
         [HttpGet]
-        public async Task<ActionResult<IList<Adult>>> GetTodos([FromQuery] int? userId, [FromQuery] bool? isCompleted) {
+        public async Task<ActionResult<IList<Adult>>> GetAdults([FromQuery] int? userId) {
             try
             {
                 IList<Adult> adults = await websiteData.GetAdultsAsync();

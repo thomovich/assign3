@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using FileData;
@@ -73,8 +75,14 @@ namespace Assignment1_DNP1.Data
 
         public async Task<IList<Adult>> GetAdultsAsync()
         {
-            List<Adult> tmp = new List<Adult>(adults);
-            return tmp;
+            using HttpClient client = new HttpClient(); HttpResponseMessage responseMessage = await client.GetAsync("https://localhost:50001");
+
+            if (!responseMessage.IsSuccessStatusCode) throw new Exception(@"Error: {responseMessage.StatusCode}, {responseMessage.ReasonPhrase}");
+            string result = await responseMessage.Content.ReadAsStringAsync();
+
+            List<Adult> adults = JsonSerializer.Deserialize<List<Adult>>(result, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
+
+            return adults;
         }
 
         public void Update(Adult adult)

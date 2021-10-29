@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using System.Threading.Tasks;
 using Assignment1_DNP1.Models;
 using FileData;
 using Microsoft.AspNetCore.Components;
@@ -70,6 +71,11 @@ namespace Assignment1_DNP1.Data
         public Adult Get(int id)
         {
             return adults.FirstOrDefault(t => t.Id == id);
+        }
+
+        public Task<IList<Adult>> GetAdultsAsync()
+        {
+            throw new System.NotImplementedException();
         }
 
         public void Update(Adult adult)

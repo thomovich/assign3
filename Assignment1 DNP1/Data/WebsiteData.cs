@@ -38,7 +38,7 @@ namespace Assignment1_DNP1.Data
             return tmp;
         }
 
-        public void AddAdult(Adult adult)
+        public async Task<Adult> AddAdult(Adult adult)
         {
             adults.Add(adult);
             WriteAdultFile();
@@ -46,11 +46,12 @@ namespace Assignment1_DNP1.Data
 
         
 
-        public void RemoveAdult(int adultId)
+        public async Task<Adult> RemoveAdult(int adultId)
         {
             Adult toRemove = adults.First(t => t.Id == adultId);
             adults.Remove(toRemove);
             WriteAdultFile();
+            return adults;
         }
 
         private void WriteAdultFile()
@@ -68,7 +69,7 @@ namespace Assignment1_DNP1.Data
 
         
 
-        public Adult Get(int id)
+        public async Task<Adult?> Get(int id)
         {
             return adults.FirstOrDefault(t => t.Id == id);
         }
@@ -78,11 +79,12 @@ namespace Assignment1_DNP1.Data
             throw new System.NotImplementedException();
         }
 
-        public void Update(Adult adult)
+        public async Update(Adult adult)
         {
             Adult toUpdate = adults.First(t => t.Id == adult.Id);
             toUpdate.FirstName = adult.FirstName;
             WriteAdultFile();
+            
         }
         
         

@@ -10,11 +10,11 @@ namespace Assignment1_DNP1.Data
     public interface IAdultdata
     {
         
-        IList<Adult> GetAdults();
-        void AddAdult(Adult adult);
-        void RemoveAdult(int todoId);
-        void Update(Adult adult);
-        Adult Get(int id);
+        //IList<Adult> GetAdults();
+       Task<Adult> AddAdult(Adult adult);
+        Task<Adult> RemoveAdult(int todoId);
+        Task<Adult> Update(Adult adult);
+        Task<Adult> Get(int id);
         Task<IList<Adult>> GetAdultsAsync();
     }
 }

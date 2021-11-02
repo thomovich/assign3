@@ -84,12 +84,6 @@ namespace Assignment_2
 
         public async Task<IList<Adult>> GetAdultsAsync()
         {
-            using HttpClient client = new HttpClient(); HttpResponseMessage responseMessage = await client.GetAsync("https://localhost:50001");
-
-            if (!responseMessage.IsSuccessStatusCode) throw new Exception(@"Error: {responseMessage.StatusCode}, {responseMessage.ReasonPhrase}");
-            string result = await responseMessage.Content.ReadAsStringAsync();
-
-            List<Adult> adults = JsonSerializer.Deserialize<List<Adult>>(result, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
 
             return adults;
         }

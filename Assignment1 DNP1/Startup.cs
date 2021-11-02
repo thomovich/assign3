@@ -31,7 +31,7 @@ namespace Assignment1_DNP1
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<IAdultdata, WebsiteData>();
+            services.AddSingleton<IAdultdata, WebApiCaller>();
             services.AddScoped<IUserService, InMemoryUserService>();
             services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
             

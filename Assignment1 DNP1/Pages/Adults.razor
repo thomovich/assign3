@@ -134,7 +134,7 @@ else
     protected override async Task OnInitializedAsync()
     {
 
-        allAdults = _adultdata.GetAdults();
+        allAdults = await _adultdata.GetAdultsAsync();
         adultsToshow = allAdults;
     }
 

@@ -70,12 +70,12 @@ namespace Assignment_2
             File.WriteAllText(AdultFile, todoAsJson);
         }
 
-        private void WriteAdultsToFile()
+      /*  private void WriteAdultsToFile()
         {
             string adultasJson = JsonSerializer.Serialize(adults);
             File.WriteAllText(AdultFile, adultasJson);
             _fileContext.SaveChanges();
-        }
+        }*/
         
         public Adult Get(int id)
         {

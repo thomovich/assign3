@@ -67,7 +67,7 @@ namespace Assignment_2 {
         
         [HttpPatch]
         [Route("{id:int}")]
-        public async Task<ActionResult<Adult>> UpdateAdult([FromBody] Adult adult)
+        public async Task<ActionResult<Adult>> UpdateAdult([FromBody] Adult adult, [FromRoute] int id)
         {
             try
             {

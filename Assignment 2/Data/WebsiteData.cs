@@ -6,7 +6,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
-using FileData;
 using Models;
 
 namespace Assignment_2
@@ -14,7 +13,7 @@ namespace Assignment_2
     public class WebsiteData : IAdultdata
     {
         private IList<Adult> adults;
-        private FileContext _fileContext;
+      
         public string AdultFile = "adults.json";
 
         public WebsiteData() {

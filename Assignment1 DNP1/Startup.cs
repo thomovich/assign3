@@ -36,6 +36,7 @@ namespace Assignment1_DNP1
             services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
             
             
+            
             services.AddAuthorization(options => {
                 options.AddPolicy("MustBeVIA",  a => 
                     a.RequireAuthenticatedUser().RequireClaim("Domain", "via.dk"));

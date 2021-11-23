@@ -16,7 +16,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Persistence\" />
+      <ProjectReference Include="..\Library\Library.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Models" />
     </ItemGroup>
 
     

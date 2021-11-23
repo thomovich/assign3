@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Assignment_2.Data;
+using Library.Dataacces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -34,6 +36,8 @@ namespace Assignment_2
             });
             services.AddScoped<IAdultdata, WebsiteData>();
             services.AddScoped<IUserService, InMemoryUserService>();
+           services.AddDbContext<ViaDBContext>();
+           services.AddScoped<IAdultdata, SqliteAdultService>();
 
         }
 

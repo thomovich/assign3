@@ -15,13 +15,13 @@ namespace Assignment_2
     {
         public static void Main(string[] args)
         {
-            using (ViaDBContext viaDbContext = new ViaDBContext())
+    /*        using (ViaDBContext viaDbContext = new ViaDBContext())
             {
                 if (!viaDbContext.Adults.Any())
                 {
                     Seed(viaDbContext);
                 }
-            }
+            }*/
             
             CreateHostBuilder(args).Build().Run();
         }

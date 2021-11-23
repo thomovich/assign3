@@ -11,7 +11,7 @@ namespace Library.Dataacces
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source = VIA.db");
+            optionsBuilder.UseSqlite(@"Data Source = C:\Users\chris\Desktop\VIA University College\7.Semester\DNP\Rider\DNP\assign3\Library\VIA.db");
         }
     }
 }

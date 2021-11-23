@@ -34,7 +34,7 @@ namespace Assignment_2
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "Assignment_2", Version = "v1"});
             });
-            services.AddScoped<IAdultdata, WebsiteData>();
+            //services.AddScoped<IAdultdata, WebsiteData>();
             services.AddScoped<IUserService, InMemoryUserService>();
            services.AddDbContext<ViaDBContext>();
            services.AddScoped<IAdultdata, SqliteAdultService>();

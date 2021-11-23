@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Library.Models {
 public class Person {
     
-     [Key, MaxLength(12)]
+     [Key]
     public int Id { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
